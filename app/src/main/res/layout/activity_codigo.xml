@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <!-- tools:context=".MainActivity" -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,12 +39,38 @@
             android:paddingBottom="20dp">
 
             <TextView
+                android:id="@+id/lblUltimoCodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ultimo Codigo Ingresado:"
+                android:textSize="20dp"
+                android:paddingBottom="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/lblTextUltimoCodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ultimo Codigo:"
+                android:textSize="20dp"
+                android:paddingBottom="20dp"/>
+
+            <TextView
             android:id="@+id/lblCantidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cantidad:"
             android:textSize="20dp"
-            android:paddingBottom="20dp"/>
+            android:paddingBottom="20dp"
+            android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/lblTextCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="Cantidad"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/lblUsuario"
@@ -54,7 +78,16 @@
                 android:layout_height="wrap_content"
                 android:text="Usuario:"
                 android:textSize="20dp"
-                android:paddingBottom="20dp"/>
+                android:paddingBottom="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/lblTextUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="Usuario"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/lblUbicacion"
@@ -62,7 +95,15 @@
                 android:layout_height="wrap_content"
                 android:text="Ubicacion:"
                 android:textSize="20dp"
-                android:paddingBottom="20dp"/>
+                android:paddingBottom="20dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/lblTextUbicacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="Ubicacion"
+                android:textSize="20dp" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

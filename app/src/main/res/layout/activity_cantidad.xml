@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <!-- tools:context=".MainActivity" -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cantidad"
-            android:textSize="40dp"
+            android:textSize="40sp"
             android:layout_centerHorizontal="true"/>
 
         <EditText
@@ -33,14 +32,14 @@
             android:padding="40dp">
 
             <Button
-                android:id="@+id/btnAceptar"
+                android:id="@+id/btnAceptarCantidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="Aceptar" />
 
             <Button
-                android:id="@+id/btnCancelar"
+                android:id="@+id/btnCancelarCantidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
