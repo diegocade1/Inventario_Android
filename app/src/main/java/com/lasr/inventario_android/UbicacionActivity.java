@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.Serializable;
 
 public class UbicacionActivity extends AppCompatActivity implements Serializable{
@@ -37,11 +39,18 @@ public class UbicacionActivity extends AppCompatActivity implements Serializable
             public void onClick(View v) {
                 EditText txt = findViewById(R.id.txtUbicacion);
                 String ubicacion = txt.getText().toString();
-                String usuario = (String)getIntent().getSerializableExtra("usuario");
-                startActivity(new Intent(UbicacionActivity.this,CodigoActivity.class)
-                        .putExtra("usuario",usuario)
-                        .putExtra("ubicacion",ubicacion));
-                esconderKeyboard();
+                if(!ubicacion.trim().equals(""))
+                {
+                    String usuario = (String)getIntent().getSerializableExtra("usuario");
+                    startActivity(new Intent(UbicacionActivity.this,CodigoActivity.class)
+                            .putExtra("usuario",usuario)
+                            .putExtra("ubicacion",ubicacion));
+                    esconderKeyboard();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Ingrese Ubicacion", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

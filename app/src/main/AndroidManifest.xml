@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".CodigoActivity"></activity>
-        <activity android:name=".CantidadActivity" />
         <activity android:name=".UsuarioActivity" />
         <activity android:name=".UbicacionActivity" />
         <activity android:name=".MainActivity">
@@ -21,5 +20,5 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import java.io.Serializable;
 
 public class UsuarioActivity extends AppCompatActivity implements Serializable {
@@ -30,9 +32,17 @@ public class UsuarioActivity extends AppCompatActivity implements Serializable {
             public void onClick(View v) {
                 EditText txt = findViewById(R.id.txtUsuario);
                 String usuario = txt.getText().toString();
-                startActivity(new Intent(UsuarioActivity.this,UbicacionActivity.class)
-                        .putExtra("usuario",usuario));
-                esconderKeyboard();
+                if(!usuario.trim().equals(""))
+                {
+                    startActivity(new Intent(UsuarioActivity.this,UbicacionActivity.class)
+                            .putExtra("usuario",usuario));
+                    esconderKeyboard();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Ingrese Usuario", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
