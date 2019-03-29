@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -31,7 +32,7 @@ import java.util.regex.Pattern;
 
 public class CodigoActivity extends AppCompatActivity implements Serializable {
 
-    final private List<String> arrayTemp = new ArrayList<String>();
+    //final private List<String> arrayTemp = new ArrayList<String>();
     private int cantidad = 0;
     private String code = "";
 
@@ -39,7 +40,7 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codigo);
-
+        esconderKeyboard();
 //-------------------Botones-----------------------------------
         Button btnCod =findViewById(R.id.btnTipoCodigo);
         Button btnRegresar = findViewById(R.id.btnRegresar);
@@ -47,7 +48,7 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
 //-------------------Accion Botones----------------------------
         ActionBtnCod(btnCod);
         ActionBtnRegresar(btnRegresar);
-        ActionBtnTerminar(btnTerminar);
+        //ActionBtnTerminar(btnTerminar);
 //----------------------------------------------------------------------------
         TextView lblUsuario = findViewById(R.id.lblTextUsuario);
         String usuario = (String)getIntent().getSerializableExtra("usuario");
@@ -65,6 +66,9 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
 //-----------------------------------------------------------------
         EditText text = findViewById(R.id.txtCodigo);
         ActionKeyPressTextCodigo(text);
+
+        EditText textCant = findViewById(R.id.txtCantidad);
+        ActionKeyPressTextCantidad(textCant);
     }
 
     private void ActionBtnCod(final Button boton)
@@ -114,12 +118,13 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
                             if(!tipos.toUpperCase().equals("COD/COD"))
                             {
                                 EditText cant = findViewById(R.id.txtCantidad);
+                                /*
                                 if(!cant.getText().toString().trim().equals(""))
                                 {
                                     COD_CANT(lblUsuario.getText().toString(),lblUbicacion.getText().toString(),text.getText().toString(),cant.getText().toString());
                                     cant.setText("");
                                     text.setText("");
-                                    cant.requestFocus();
+                                    text.requestFocus();
                                     return true;
                                 }
                                 else
@@ -128,6 +133,9 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
                                     cant.requestFocus();
                                     return true;
                                 }
+                                */
+                                cant.requestFocus();
+                                return true;
                             }
                             else
                             {
@@ -144,8 +152,47 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
                     }
                     else
                     {
-                        return CodigoActivity.super.onKeyDown(keyCode, keyevent);
+                        //return CodigoActivity.super.onKeyDown(keyCode, keyevent);
+                        return false;
                     }
+            }
+        });
+        return false;
+    }
+
+    private boolean ActionKeyPressTextCantidad(EditText text)
+    {
+        text.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
+
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    EditText cant = findViewById(R.id.txtCantidad);
+
+                    if(!cant.getText().toString().trim().equals(""))
+                    {
+
+                        TextView lblUsuario = findViewById(R.id.lblTextUsuario);
+                        TextView lblUbicacion = findViewById(R.id.lblTextUbicacion);
+
+                        EditText text = findViewById(R.id.txtCodigo);
+
+                        COD_CANT(lblUsuario.getText().toString(),lblUbicacion.getText().toString(),text.getText().toString(),cant.getText().toString());
+                        text.setText("");
+                        cant.setText("");
+                        text.requestFocus();
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    //return CodigoActivity.super.onKeyDown(keyCode, keyevent);
+                    return false;
+                }
             }
         });
         return false;
@@ -164,7 +211,34 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
         */
         cantidad += Integer.parseInt(cant);
         code = codigo;
-        arrayTemp.add(usuario+","+ubicacion+","+code+","+cant);
+
+        try
+        {
+            String fileNombre = "Datos" + ".txt";//like 2016_01_12.txt
+            File root = new File(Environment.getExternalStorageDirectory()+File.separator+"Inventario");
+            //File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+            if (!root.exists())
+            {
+                root.mkdirs();
+            }
+            File archivo = new File(root, fileNombre);
+
+            FileWriter writer = new FileWriter( archivo,true);
+
+            String line = Padding(' ',2,usuario) + ","+ Padding(' ',15,ubicacion) +","+
+                    Padding(' ',25,codigo)+","+Padding('0',10,cant);
+
+            writer.append(line+"\r\n");
+
+            writer.flush();
+            writer.close();
+            //Toast.makeText(getApplicationContext(), "Archivo generado en el Almacenamiento Interno", Toast.LENGTH_SHORT).show();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+
 
         TextView txtCodigo = findViewById(R.id.lblTextUltimoCodigo);
         txtCodigo.setText(code);
@@ -194,7 +268,33 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
         String cant = "1";
         cantidad += 1;
         code = codigo;
-        arrayTemp.add(usuario+","+ubicacion+","+code+","+cant);
+
+        try
+        {
+            String fileNombre = "Datos" + ".txt";//like 2016_01_12.txt
+            File root = new File(Environment.getExternalStorageDirectory()+File.separator+"Inventario");
+            //File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+            if (!root.exists())
+            {
+                root.mkdirs();
+            }
+            File archivo = new File(root, fileNombre);
+
+            FileWriter writer = new FileWriter( archivo,true);
+
+            String line = Padding(' ',2,usuario) + ","+ Padding(' ',15,ubicacion) +","+
+                        Padding(' ',25,codigo)+","+Padding('0',10,cant);
+
+            writer.append(line+"\r\n");
+
+            writer.flush();
+            writer.close();
+            //Toast.makeText(getApplicationContext(), "Archivo generado en el Almacenamiento Interno", Toast.LENGTH_SHORT).show();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
 
         TextView txtCodigo = findViewById(R.id.lblTextUltimoCodigo);
         txtCodigo.setText(code);
@@ -218,6 +318,7 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
         });
     }
 
+    /*
     private void ActionBtnTerminar(Button boton)
     {
         boton.setOnClickListener(new View.OnClickListener() {
@@ -225,9 +326,7 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
             public void onClick(View v) {
                 if(arrayTemp.size()!=0)
                 {
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss");
-                    Date now = new Date();
-                    String fileName = formatter.format(now) + ".txt";//like 2016_01_12.txt
+                    String fileName = "Datos" + ".txt";//like 2016_01_12.txt
 
 
                     try
@@ -238,19 +337,20 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
                         {
                             root.mkdirs();
                         }
-                        File gpxfile = new File(root, fileName);
+                        File archivo = new File(root, fileName);
 
-                        FileWriter writer = new FileWriter(gpxfile,true);
+                        FileWriter writer = new FileWriter( archivo,true);
+
                         for(int i = 0;i<arrayTemp.size();i++)
                         {
                             String []lineTemp = arrayTemp.get(i).split(",");
                             String line = Padding(' ',2,lineTemp[0]) + ","+ Padding(' ',15,lineTemp[1]) +","+
                                     Padding(' ',25,lineTemp[2])+","+Padding('0',10,lineTemp[3]);
-                            writer.append(line+"\n");
+                            writer.append(line+"\r\n");
                         }
                         writer.flush();
                         writer.close();
-                        Toast.makeText(getApplicationContext(), "Archivo generado en SDCard", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Archivo generado en el Almacenamiento Interno", Toast.LENGTH_SHORT).show();
                     }
                     catch(IOException e)
                     {
@@ -264,10 +364,17 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
             }
         });
     }
-
+*/
     private String Padding(char relleno,int largo, String palabra)
     {
         String padded = new String(new char[largo - palabra.length()]).replace('\0', relleno) + palabra;
         return padded;
+    }
+
+    public void esconderKeyboard() {
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }
