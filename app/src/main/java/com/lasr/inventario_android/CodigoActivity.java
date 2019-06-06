@@ -227,7 +227,6 @@ public class CodigoActivity extends AppCompatActivity implements Serializable {
 
             String line = Padding(' ',2,usuario) + ","+ Padding(' ',15,ubicacion) +","+
                     Padding(' ',25,codigo)+","+Padding('0',10,cant);
-
             writer.append(line+"\r\n");
 
             writer.flush();
